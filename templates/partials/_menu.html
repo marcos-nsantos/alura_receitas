@@ -60,6 +60,7 @@
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'index' %}">Página principal</a></li>
                                     <li><a href="{% url 'dashboard' %}">Minhas receitas</a></li>
+                                    <li><a href="{% url 'cria_receita' %}">Cria Receita</a></li>
                                     <li><a href="{% url 'logout' %}">Sair</a></li>
                                 {% else %}
                                     <li><a href="{% url 'index' %}">Página principal</a></li>
