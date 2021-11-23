@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from receitas.models import Receita
 
@@ -12,21 +13,21 @@ def cadastro(request):
         senha = request.POST['password']
         senha2 = request.POST['password2']
         if not nome.strip():
-            print('Nome não pode ser vazio')
+            messages.error(request, 'O campo nome não pode ficar vazio')
             return redirect(reverse('cadastro'))
         if not email.strip():
-            print('Email não pode ser vazio')
+            messages.error(request, 'Email não pode ser vazio')
             return redirect(reverse('cadastro'))
         if senha2 != senha:
-            print('Senhas não conferem')
+            messages.error(request, 'As senhas não conferem')
             return redirect(reverse('cadastro'))
         if User.objects.filter(email=email).exists():
-            print('Email já cadastrado')
+            messages.error(request, 'Email já cadastrado')
             return redirect(reverse('cadastro'))
 
         user = User.objects.create_user(username=nome, email=email, password=senha)
         user.save()
-        print('Usuário cadastrado com sucesso!')
+        messages.success(request, 'Usuário cadastrado com sucesso!')
         return redirect(reverse('login'))
     else:
         return render(request, 'usuarios/cadastro.html')
@@ -37,7 +38,7 @@ def login(request):
         email = request.POST['email']
         senha = request.POST['password']
         if email == '' or senha == '':
-            print('Os campos não podem fica vazios')
+            messages.error(request, 'Email ou senha não pode ser vazio')
             return redirect(reverse('login'))
         print(email, senha)
         if User.objects.filter(email=email).exists():
@@ -45,7 +46,6 @@ def login(request):
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                print('Usuário logado com sucesso!')
                 return redirect(reverse('dashboard'))
 
     return render(request, 'usuarios/login.html')
