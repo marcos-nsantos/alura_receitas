@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .models import views
+from . import views
 
 urlpatterns = [
     path('cadastro', views.cadastro, name='cadastro'),
