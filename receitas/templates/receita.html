@@ -71,7 +71,7 @@
                             <h6>Preparo: {{ receita.tempo_preparo }}</h6>
                             <h6>Rendimento: {{ receita.rendimento }}</h6>
                             <h6>Categoria: {{ receita.categoria }}</h6>
-                            <h6>Por: Pessoa</h6>
+                            <h6>Por: {{ receita.pessoa.nome }}</h6>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <!-- Ingredientes -->
                     <div class="col-12 col-lg-4">
                         <div class="ingredients">
-                            <h4>Ingredientees</h4>
+                            <h4>Ingredientes</h4>
                             <div class="ingredients">
                                 <p>{{ receita.ingredientes }}</p>
                             </div>
