@@ -7,6 +7,7 @@ from apps.receitas.models import Receita
 
 
 def cadastro(request):
+    """Cadastra um novo usuário"""
     if request.method == 'POST':
         nome = request.POST['nome']
         email = request.POST['email']
@@ -37,6 +38,7 @@ def cadastro(request):
 
 
 def login(request):
+    """Realiza o login do usuário"""
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['password']
@@ -54,11 +56,13 @@ def login(request):
 
 
 def logout(request):
+    """Realiza o logout do usuário"""
     logout(request)
     return redirect(reverse('login'))
 
 
 def dashboard(request):
+    """Página inicial do usuário"""
     if request.user.is_authenticated:
         id = request.user.id
         receitas = Receita.objects.order_by('-date_receita').filter(pessoa=id)
@@ -69,8 +73,10 @@ def dashboard(request):
 
 
 def campo_vazio(campo):
+    """Verifica se o campo está vazio"""
     return not campo.strip()
 
 
 def senhas_nao_sao_iguais(senha, senha2):
+    """Verifica se as senhas não são iguais"""
     return senha != senha2
