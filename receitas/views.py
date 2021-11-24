@@ -8,7 +8,7 @@ def index(request):
     dados = {
         'receitas': receitas
     }
-    return render(request, 'index.html', dados)
+    return render(request, 'receitas/index.html', dados)
 
 
 def receita(request, receita_id):
@@ -16,7 +16,7 @@ def receita(request, receita_id):
     receita_a_exibir = {
         'receita': receita
     }
-    return render(request, 'receita.html', receita_a_exibir)
+    return render(request, 'receitas/receita.html', receita_a_exibir)
 
 
 def buscar(request):
@@ -30,4 +30,4 @@ def buscar(request):
         'receitas': lista_receitas
     }
 
-    return render(request, 'buscar.html', dados)
+    return render(request, 'receitas/buscar.html', dados)
