@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from receitas.models import Receita
+from apps.receitas.models import Receita
 
 
 def busca(request):

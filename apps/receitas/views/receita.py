@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 
-from receitas.models import Receita
+from apps.receitas.models import Receita
 
 
 def index(request):
