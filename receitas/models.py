@@ -3,8 +3,6 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-from pessoas.models import Pessoa
-
 
 class Receita(models.Model):
     pessoa = models.ForeignKey(User, on_delete=models.CASCADE)
