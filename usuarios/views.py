@@ -12,17 +12,20 @@ def cadastro(request):
         email = request.POST['email']
         senha = request.POST['password']
         senha2 = request.POST['password2']
-        if not nome.strip():
+        if campo_vazio(nome):
             messages.error(request, 'O campo nome não pode ficar vazio')
             return redirect(reverse('cadastro'))
-        if not email.strip():
+        if campo_vazio(email):
             messages.error(request, 'Email não pode ser vazio')
             return redirect(reverse('cadastro'))
-        if senha2 != senha:
+        if senhas_nao_sao_iguais(senha, senha2):
             messages.error(request, 'As senhas não conferem')
             return redirect(reverse('cadastro'))
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email já cadastrado')
+            return redirect(reverse('cadastro'))
+        if User.objects.filter(username=nome).exists():
+            messages.error(request, 'Usuário já cadastrado')
             return redirect(reverse('cadastro'))
 
         user = User.objects.create_user(username=nome, email=email, password=senha)
@@ -37,10 +40,9 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['password']
-        if email == '' or senha == '':
+        if campo_vazio(email) or campo_vazio(senha):
             messages.error(request, 'Email ou senha não pode ser vazio')
             return redirect(reverse('login'))
-        print(email, senha)
         if User.objects.filter(email=email).exists():
             nome = User.objects.get(email=email).values_list('username', flat=True).get()
             user = authenticate(request, username=nome, password=senha)
@@ -83,3 +85,11 @@ def cria_receita(request):
         return redirect(reverse('dashboard'))
     else:
         return render(request, 'usuarios/cria_receita.html')
+
+
+def campo_vazio(campo):
+    return not campo.strip()
+
+
+def senhas_nao_sao_iguais(senha, senha2):
+    return senha != senha2
